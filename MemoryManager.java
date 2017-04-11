@@ -14,7 +14,6 @@ public class MemoryManager {
         this.freeList = new LinkedList<MemoryBlock>();
         int size = Disk.getDiskSize();
         for(int i = 0; i < size;) {
-            System.out.println(i);
             Disk.seek(i);
             int blockSize = Disk.readInt();
             int allocated = Disk.readInt();
@@ -73,11 +72,14 @@ public class MemoryManager {
             MemoryBlock current = freeList.get(i);
             if(current.getSize() >= requiredSize) {
                 long position = current.getPosition();
-                current.setPosition(position + requiredSize);
-                current.setSize(current.getSize() - requiredSize);
-                if(current.getSize() == 0) {
+                int newSize = current.getSize() - requiredSize;
+                if(newSize < 8) {
                     freeList.remove(i);
+                } else {
+                    current.setPosition(position + requiredSize);
+                    current.setSize(current.getSize() - requiredSize);
                 }
+
                 new MemoryBlock(requiredSize, position, MemoryBlock.ALLOCATED);
                 return position + MemoryBlock.HEADER_SIZE;
             }

@@ -88,7 +88,7 @@ public class Main {
             } else {
                 System.out.println("Enter text to be written to the file: ");
                 String content = scan.nextLine();
-                result = file.writeFile(content);
+                result = file.writeFile(content.getBytes());
             }
             break;
         case 6: // List Files

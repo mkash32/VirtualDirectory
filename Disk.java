@@ -10,11 +10,11 @@ public class Disk {
         try {
             raf = new RandomAccessFile("virtualdisk1.txt", "rw");
             // Set length of file to 1 MB
-            raf.setLength(1 * (1024*1024));
-            long j = 1024;
-            String s = " ";
-            for(long i = 0; i < j; i++) {
-                raf.writeChars(s);
+            long fileSize = 1 * (1024 * 1024);
+            raf.setLength(fileSize);
+            byte[] b = {' '};
+            for(long i = 0; i < fileSize; i++) {
+                raf.write(b);
             }
         } catch(Exception e) {
             e.printStackTrace();

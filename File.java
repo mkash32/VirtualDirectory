@@ -8,7 +8,6 @@ public interface File {
     public void setName(String name);
     public String readFile(int numOfBytes);
     public boolean writeFile(byte[] bytes);
-    public boolean writeFile(String s);
     public int getSize();
     public long getStartPosition();
     public void free();
