@@ -119,7 +119,6 @@ public class LLDirectory implements Directory {
                 String line = files[i].getName() + " "
                     + files[i].getSize() + " "
                     + files[i].getStartPosition();
-                System.out.println(line);
                 writer.println(line);
             }
             writer.close();

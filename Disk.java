@@ -93,6 +93,18 @@ public class Disk {
         }
     }
 
+    public static void clear(long start, int size) {
+        try {
+            Disk.seek(start);
+            byte[] b = {' '};
+            for(long i = 0; i < size; i++) {
+                raf.write(b);
+            }
+        } catch(IOException io) {
+            io.printStackTrace();
+        }
+    }
+
     public static int read(byte[] b, long off, int len) {
         int res = 0;
         try {

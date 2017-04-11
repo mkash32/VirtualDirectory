@@ -36,6 +36,8 @@ public class ContiguousFile implements File {
             System.out.println("Attempted write is bigger than the file size. Aborting.\n");
             return false;
         }
+        
+        Disk.clear(startingPosition, size);
         Disk.write(bytes, startingPosition, bytes.length);
         return true;
     }
