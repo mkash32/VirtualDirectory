@@ -3,18 +3,19 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+// Disk acts as a Virtual Disk to test various File allocation and Directory implementation schemes
 public class Disk {
     private static RandomAccessFile raf;
 
     public static void newDisk() {
         try {
-            raf = new RandomAccessFile("virtualdisk1.txt", "rw");
+            raf = new RandomAccessFile("virtualdisk.txt", "rw");
             // Set length of file to 1 MB
-            raf.setLength(1 * (1024*1024));
-            long j = 1024;
-            String s = " ";
-            for(long i = 0; i < j; i++) {
-                raf.writeChars(s);
+            long fileSize = 1 * (1024 * 1024);
+            raf.setLength(fileSize);
+            byte[] b = {' '};
+            for(long i = 0; i < fileSize; i++) {
+                raf.write(b);
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -23,7 +24,7 @@ public class Disk {
 
     public static Directory loadDisk() {
         try {
-            raf = new RandomAccessFile("virtualdisk1.txt", "rw");
+            raf = new RandomAccessFile("virtualdisk.txt", "rw");
             FileReader fr = new FileReader("meta.txt");
             BufferedReader br = new BufferedReader(fr);
             String[] strings = br.readLine().split(" ");
@@ -51,18 +52,18 @@ public class Disk {
         return null;
     }
 
-    public static void write(byte[] b, long off, int len) {
+    public static void seek(long position) {
         try {
-            raf.seek(off);
-            raf.write(b, 0, len);
+            raf.seek(position);
         } catch(IOException io) {
             io.printStackTrace();
         }
     }
 
-    public static void seek(long position) {
+    public static void write(byte[] b, long off, int len) {
         try {
-            raf.seek(position);
+            raf.seek(off);
+            raf.write(b, 0, len);
         } catch(IOException io) {
             io.printStackTrace();
         }
@@ -76,18 +77,13 @@ public class Disk {
         }
     }
 
-    public static void writeBoolean(boolean b) {
+    public static void clear(long start, int size) {
         try {
-            raf.writeBoolean(b);
-        } catch(IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    public static void write(String s, long start) {
-        try {
-            raf.seek(start);
-            raf.writeChars(s);
+            Disk.seek(start);
+            byte[] b = {' '};
+            for(long i = 0; i < size; i++) {
+                raf.write(b);
+            }
         } catch(IOException io) {
             io.printStackTrace();
         }

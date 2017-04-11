@@ -37,7 +37,6 @@ public class MemoryBlock {
     }
 
     public void setSizeAndAllocation(int newSize, int allocated) {
-        System.out.println("Writing size " + newSize);
         this.size = newSize;
         this.allocated = allocated;
         if(newSize < 8) {
@@ -46,10 +45,5 @@ public class MemoryBlock {
         Disk.seek(position);
         Disk.writeInt(this.size);
         Disk.writeInt(this.allocated);
-
-        // Remove
-        Disk.seek(position);
-        int tsize = Disk.readInt();
-        System.out.println("At position " + position + " size is " + tsize);
     }
 }

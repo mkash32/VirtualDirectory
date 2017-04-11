@@ -1,3 +1,4 @@
+// The various Directory Implementations (Hash Table, Linked List) should adhere to this interface.
 public interface Directory {
     public File findFile(String name);
     public boolean createFile(String name);

@@ -62,7 +62,7 @@ public class LLDirectory implements Directory {
 
         f = null;
         if(allocationType == File.CONTIGUOUS) {
-            System.out.print("Enter size of the file: ");
+            System.out.print("Enter size of the file (in Bytes): ");
             Scanner s = new Scanner(System.in);
             int size = s.nextInt();
             s.nextLine();
@@ -119,7 +119,6 @@ public class LLDirectory implements Directory {
                 String line = files[i].getName() + " "
                     + files[i].getSize() + " "
                     + files[i].getStartPosition();
-                System.out.println(line);
                 writer.println(line);
             }
             writer.close();

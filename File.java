@@ -1,3 +1,4 @@
+// The various File allocation schemes should adhere to this interface.
 public interface File {
     // Types of File Allocation
     public int CONTIGUOUS = 1;
@@ -8,7 +9,6 @@ public interface File {
     public void setName(String name);
     public String readFile(int numOfBytes);
     public boolean writeFile(byte[] bytes);
-    public boolean writeFile(String s);
     public int getSize();
     public long getStartPosition();
     public void free();
