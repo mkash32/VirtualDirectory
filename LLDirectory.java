@@ -32,7 +32,9 @@ public class LLDirectory implements Directory {
                 if(allocationType == File.CONTIGUOUS) {
                     f = new ContiguousFile(name, size, startingPosition);
                 } else if(allocationType == File.LINKED) {
-                    f = new LinkedListFile(name, size, startingPosition);
+
+                } else {
+
                 }
                 list.add(f);
             }
@@ -52,7 +54,6 @@ public class LLDirectory implements Directory {
     }
 
     public boolean createFile(String name) {
-
         File f = findFile(name);
         if(f != null) {
             System.out.println("File with that name already exists.");
@@ -65,14 +66,13 @@ public class LLDirectory implements Directory {
             Scanner s = new Scanner(System.in);
             int size = s.nextInt();
             s.nextLine();
-            f = new ContiguousFile(name, size);            
+            f = new ContiguousFile(name, size);
         } else if(allocationType == File.LINKED) {
-            f = new LinkedListFile(name);
+            // TODO: Yet to be implemented
+        } else {
+
         }
-        if(f.getStartPosition() == -1){
-            System.out.println("Requested space is not available. Enter a smaller size\n");
-            return false;
-        }
+
         list.add(f);
         return true;
     }

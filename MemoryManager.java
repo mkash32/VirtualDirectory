@@ -83,7 +83,6 @@ public class MemoryManager {
     // Coalesces the free block at the given index with its neighboring free blocks,
     // if possible. This method is called only when there are requests to free blocks.
     private void coalesce(int index) {
-        
         MemoryBlock prev, next, current;
         prev = next = null;
         current = freeList.get(index);
@@ -116,27 +115,5 @@ public class MemoryManager {
                 freeList.remove(next);
             }
         }
-    }
-<<<<<<< HEAD
-
-    // Allocating free memory blocks using first fit algorithm
-    public long allocate(int size) {
-
-        int requiredSize = size + MemoryBlock.HEADER_SIZE;
-        
-        for(int i = 0; i < freeList.size(); i++) {
-            MemoryBlock current = freeList.get(i);
-            if(current.getSize() >= requiredSize) {
-                long position = current.getPosition();
-                current.setPosition(position + requiredSize); //set the new starting position of the free block after allocation
-                current.setSize(current.getSize() - requiredSize); //set the size to the remaining after the block of requested size is allocated within the free block.
-                if(current.getSize() == 0) {
-                    freeList.remove(i);//The block should be removed from the freeList because there is no free space in the block left.
-                }
-                new MemoryBlock(requiredSize, position, MemoryBlock.ALLOCATED);
-                return position + MemoryBlock.HEADER_SIZE;
-            }
-        }
-        return -1;
     }
 }

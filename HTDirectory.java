@@ -32,7 +32,9 @@ public class HTDirectory implements Directory {
                 if(allocationType == File.CONTIGUOUS) {
                     f = new ContiguousFile(name, size, startingPosition);
                 } else if(allocationType == File.LINKED) {
-                    f = new LinkedListFile(name, size, startingPosition);
+
+                } else {
+
                 }
                 table.put(name, f);
             }
@@ -55,6 +57,7 @@ public class HTDirectory implements Directory {
             System.out.println("File with that name already exists.");
             return false;
         }
+
         File f = null;
         if(allocationType == File.CONTIGUOUS) {
             System.out.print("Enter size of the file (in Bytes): ");
@@ -63,9 +66,11 @@ public class HTDirectory implements Directory {
             s.nextLine();
             f = new ContiguousFile(name, size);
         } else if(allocationType == File.LINKED) {
-            Scanner s = new Scanner(System.in);
-            f = new LinkedListFile(name);
+            // TODO: Yet to be implemented
+        } else {
+
         }
+
         table.put(name, f);
         return true;
     }
