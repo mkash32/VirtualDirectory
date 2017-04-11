@@ -3,12 +3,13 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+// Disk acts as a Virtual Disk to test various File allocation and Directory implementation schemes
 public class Disk {
     private static RandomAccessFile raf;
 
     public static void newDisk() {
         try {
-            raf = new RandomAccessFile("virtualdisk1.txt", "rw");
+            raf = new RandomAccessFile("virtualdisk.txt", "rw");
             // Set length of file to 1 MB
             long fileSize = 1 * (1024 * 1024);
             raf.setLength(fileSize);
@@ -23,7 +24,7 @@ public class Disk {
 
     public static Directory loadDisk() {
         try {
-            raf = new RandomAccessFile("virtualdisk1.txt", "rw");
+            raf = new RandomAccessFile("virtualdisk.txt", "rw");
             FileReader fr = new FileReader("meta.txt");
             BufferedReader br = new BufferedReader(fr);
             String[] strings = br.readLine().split(" ");
@@ -51,6 +52,14 @@ public class Disk {
         return null;
     }
 
+    public static void seek(long position) {
+        try {
+            raf.seek(position);
+        } catch(IOException io) {
+            io.printStackTrace();
+        }
+    }
+
     public static void write(byte[] b, long off, int len) {
         try {
             raf.seek(off);
@@ -60,34 +69,9 @@ public class Disk {
         }
     }
 
-    public static void seek(long position) {
-        try {
-            raf.seek(position);
-        } catch(IOException io) {
-            io.printStackTrace();
-        }
-    }
-
     public static void writeInt(int w) {
         try {
             raf.writeInt(w);
-        } catch(IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    public static void writeBoolean(boolean b) {
-        try {
-            raf.writeBoolean(b);
-        } catch(IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    public static void write(String s, long start) {
-        try {
-            raf.seek(start);
-            raf.writeChars(s);
         } catch(IOException io) {
             io.printStackTrace();
         }

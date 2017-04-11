@@ -1,7 +1,8 @@
+// Implementation of Contiguous File allocation scheme
 public class ContiguousFile implements File {
     private int size; // Size of the file in bytes
-    private long startingPosition;
-    private String name;
+    private long startingPosition; // Starting position of the file in virtual disk
+    private String name; // Name of the file
     private static MemoryManager mm;
 
     public ContiguousFile(String name, int size) {
@@ -31,15 +32,21 @@ public class ContiguousFile implements File {
         return op;
     }
 
+    // Write given bytes to the file, this will overwrite the previous data in the file
     public boolean writeFile(byte[] bytes) {
         if(bytes.length > size) {
             System.out.println("Attempted write is bigger than the file size. Aborting.\n");
             return false;
         }
-        
+
         Disk.clear(startingPosition, size);
         Disk.write(bytes, startingPosition, bytes.length);
         return true;
+    }
+
+    // Free the memory allocated to the file
+    public void free() {
+        mm.freeBlock(startingPosition, size);
     }
 
     public String getName() {
@@ -56,10 +63,6 @@ public class ContiguousFile implements File {
 
     public long getStartPosition() {
         return startingPosition;
-    }
-
-    public void free() {
-        mm.freeBlock(startingPosition, size);
     }
 
     public static void setMemoryManager(MemoryManager mmNew) {

@@ -1,3 +1,4 @@
+// The various File allocation schemes should adhere to this interface.
 public interface File {
     // Types of File Allocation
     public int CONTIGUOUS = 1;
